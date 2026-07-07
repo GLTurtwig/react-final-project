@@ -10,10 +10,6 @@ import Movies from "./pages/Movies.jsx"
 import Contact from "./pages/Contact.jsx"
 import Movieinfo from "./pages/Movieinfo.jsx"
 
-
-
-
-
 function App() {
 
   return (
