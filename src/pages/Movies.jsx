@@ -9,9 +9,17 @@ const Movies = () => {
     const {search}= useParams();
     const [searchTerm, setSearchTerm] = useState(search);
 
-
-
-    
+    function filterMovies(filter) {
+        if (filter === "A-TO-Z") {
+            setMovies(movies.slice().sort((a, b) => a.Title.localeCompare(b.Title)));
+        } else if (filter === "Z-TO-A") {
+            setMovies(movies.slice().sort((a, b) => b.Title.localeCompare(a.Title)));
+        } else if (filter === "NEWEST-TO-OLDEST") {
+            setMovies(movies.slice().sort((a, b) => b.Year.slice(-4) - a.Year.slice(-4)));
+        } else if (filter === "OLDEST-TO-NEWEST") {
+            setMovies(movies.slice().sort((a, b) => a.Year.slice(-4) - b.Year.slice(-4)));
+        }
+    }
 
     useEffect(() => {
         const fetchMovies = async () => {
@@ -41,6 +49,12 @@ const Movies = () => {
                 <div className="movies__search">
                     <input type="text" placeholder="Search for movies..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
                     <button onClick={() => onSearch()} className="btn"><FontAwesomeIcon icon="magnifying-glass"/></button>
+                    <select id="filter" defaultValue="DEFAULT" onChange={(event) => filterMovies(event.target.value)} className="movies__filter">
+                        <option value="A-TO-Z">A to Z</option>
+                        <option value="Z-TO-A">Z to A</option>
+                        <option value="NEWEST-TO-OLDEST">Newest to Oldest</option>
+                        <option value="OLDEST-TO-NEWEST">Oldest to Newest</option>
+                    </select>
                 </div>
                 
             </div>
